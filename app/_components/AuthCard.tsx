@@ -17,7 +17,7 @@ export default function AuthCard() {
   return (
     <Card className="px-8 py-5 bg-gray-900 border-gray-900 shadow-xl shadow-gray-950">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-lg font-bold flex flex-row gap-x-2 pb-2 text-gray-100 ">
+        <CardTitle className="text-lg font-bold flex flex-row gap-x-2 pb-2 text-gray-100">
           PR BUDDY{" "}
           <svg
             width="24px"
