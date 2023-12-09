@@ -1,10 +1,14 @@
+import { PR_SVG } from "./pr-svg";
+
 export default function Header() {
   return (
     <header className="bg-[#10131C] antialiased">
       <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex items-center sm:justify-between sm:gap-4">
           <div className="relative hidden sm:block">
-            <h1 className="text-lg font-bold text-gray-100">PR BUDDY </h1>
+            <span className="text-lg font-bold text-gray-100 flex flex-row gap-x-2">
+              PR BUDDY {PR_SVG}
+            </span>
           </div>
 
           <div className="flex flex-1 items-center justify-between gap-8 sm:justify-end">
