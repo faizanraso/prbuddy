@@ -6,12 +6,11 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
+import Link from "next/link";
 
 export default function AuthCard() {
   return (
@@ -79,9 +78,11 @@ export default function AuthCard() {
             <Icons.google className="mr-2 h-4 w-4" />
             Google
           </Button>
-          <Button variant="outline" className="w-full">
-            Continue Without Signing In
-          </Button>
+          <Link href={"/generate"}>
+            <Button variant="outline" className="w-full">
+              Continue Without Signing In
+            </Button>
+          </Link>
         </div>
       </CardContent>
     </Card>
