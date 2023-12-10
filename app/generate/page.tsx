@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Header from "../_components/Header";
+import Header from "../_components/header/Header";
 import CodeBlock from "../_components/CodeBlock";
 
 export default function GeneratePage() {
