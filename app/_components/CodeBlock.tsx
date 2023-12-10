@@ -11,7 +11,7 @@ export default function CodeBlock({ code }: CodeBlockProps) {
     toast.success("Copied!", {
       style: {
         borderRadius: "10px",
-        background: "#333",
+        background: "#10331D",
         color: "#fff",
       },
     });

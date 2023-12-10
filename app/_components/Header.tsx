@@ -1,4 +1,4 @@
-import { PR_SVG } from "./pr-svg";
+import PRIcon from "./icons/PRIcon";
 
 export default function Header() {
   return (
@@ -8,7 +8,7 @@ export default function Header() {
           <div className="relative block">
             <p className="flex flex-row gap-x-2">
               <span className="text-lg font-bold text-gray-100 ">PR BUDDY</span>
-              {PR_SVG}
+              <PRIcon />
             </p>
           </div>
 
