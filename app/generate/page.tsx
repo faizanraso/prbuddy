@@ -22,8 +22,9 @@ export default function GeneratePage() {
               the second will be the most recent commit in the branch/PR. Check
               out the example below.
             </p>
-
-            <CodeBlock code="Test" />
+            <div className="py-2.5">
+              <CodeBlock code="Test" />
+            </div>
             <div className="mx-auto w-1/2 items-center justify-center p-3">
               C
             </div>

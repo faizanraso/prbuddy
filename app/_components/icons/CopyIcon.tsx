@@ -1,9 +1,7 @@
-export default function CopyIcon(
-  props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
-) {
+export default function CopyIcon() {
   return (
     <svg
-      {...props}
+      className="text-white"
       xmlns="http://www.w3.org/2000/svg"
       width="18"
       height="18"
