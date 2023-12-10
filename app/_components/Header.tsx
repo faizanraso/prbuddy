@@ -2,17 +2,17 @@ import { PR_SVG } from "./pr-svg";
 
 export default function Header() {
   return (
-    <header className="bg-[#10131C] antialiased">
-      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
+    <header className="bg-[#10131C] antialiased px-12 sm:px-24 md:px-30 lg:px-56">
+      <div className="mx-auto max-w-screen-xl py-8">
         <div className="flex items-center sm:justify-between sm:gap-4">
-          <div className="relative hidden sm:block">
+          <div className="relative block">
             <p className="flex flex-row gap-x-2">
               <span className="text-lg font-bold text-gray-100 ">PR BUDDY</span>
               {PR_SVG}
             </p>
           </div>
 
-          <div className="flex flex-1 items-center justify-between gap-8 sm:justify-end">
+          <div className="flex flex-1 items-center gap-8 justify-end">
             <button
               type="button"
               className="group flex shrink-0 items-center rounded-lg transition"
