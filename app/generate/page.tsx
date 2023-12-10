@@ -25,21 +25,18 @@ export default function GeneratePage() {
             <div className="py-2.5">
               <CodeBlock code="Test" />
             </div>
-            <div className="mx-auto w-1/2 items-center justify-center p-3">
-              C
-            </div>
           </div>
-          <div className="py-5">
+          <div className="py-2.5">
             <h1 className="font-bold text-2xl text-gray-100 underline">
               2. Upload the diff file
             </h1>
           </div>
-          <div className="py-5">
+          <div className="py-2.5">
             <h1 className="font-bold text-2xl text-gray-100 underline">
               3. Pick what you want
             </h1>
           </div>
-          <div className="py-5">
+          <div className="py-2.5">
             <h1 className="font-bold text-2xl text-gray-100 underline">
               4. Get the PR description
             </h1>
