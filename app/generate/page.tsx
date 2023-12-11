@@ -15,15 +15,15 @@ export default function GeneratePage() {
               1. Get the 'diff'
             </h1>
             <p className=" text-gray-300 py-2.5">
-              The first step is to generate a "diff" file. This file will
-              contain all the changes you've made between two commits (i.e. in
-              the PR). To generate this, first you have to get the two commit
-              hashes. One will be the commit you made when opening the PR, and
-              the second will be the most recent commit in the branch/PR. Check
-              out the example below.
+              The initial step involves creating a "diff" file that captures all
+              the modifications made between two commits, essentially reflecting
+              the changes introduced in the Pull Request or branch. To generate
+              this file, execute the following command. Ensure that you are on
+              the branch associated with the opened PR and adjust the name of
+              the "main" branch if it differs.
             </p>
             <div className="py-2.5">
-              <CodeBlock code="Test" />
+              <CodeBlock code="git --no-pager diff FETCH_HEAD $(git merge-base FETCH_HEAD main) > diff.txt" />
             </div>
           </div>
           <div className="py-2.5">
