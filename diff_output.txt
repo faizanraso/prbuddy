@@ -1,0 +1,1070 @@
+diff --git a/app/_components/AuthCard.tsx b/app/_components/AuthCard.tsx
+index 17f27bb..e1ba1f9 100644
+--- a/app/_components/AuthCard.tsx
++++ b/app/_components/AuthCard.tsx
+@@ -13,14 +13,57 @@ import {
+ import Link from "next/link";
+ import { signIn, signOut } from "next-auth/react";
+ 
+-import PRIcon from "./icons/PRIcon";
+-
+ export default function AuthCard() {
+   return (
+     <Card className="px-8 py-5 bg-gray-900 border-gray-900 shadow-xl shadow-gray-950">
+       <CardHeader className="space-y-1">
+-        <CardTitle className="text-2xl font-bold flex flex-row gap-x-2 pb-2 text-gray-100">
+-          PR BUDDY <PRIcon />
++        <CardTitle className="text-lg font-bold flex flex-row gap-x-2 pb-2 text-gray-100">
++          PR BUDDY{" "}
++          <svg
++            width="24px"
++            height="24px"
++            viewBox="0 0 24 24"
++            strokeWidth="1.5"
++            fill="none"
++            xmlns="http://www.w3.org/2000/svg"
++            className="stroke-gray-100"
++          >
++            <path
++              d="M18 21C19.1046 21 20 20.1046 20 19C20 17.8954 19.1046 17 18 17C16.8954 17 16 17.8954 16 19C16 20.1046 16.8954 21 18 21Z"
++              strokeWidth="1.5"
++              strokeLinecap="round"
++              strokeLinejoin="round"
++              className="stroke-gray-100"
++            ></path>
++            <path
++              d="M6 21C7.10457 21 8 20.1046 8 19C8 17.8954 7.10457 17 6 17C4.89543 17 4 17.8954 4 19C4 20.1046 4.89543 21 6 21Z"
++              strokeWidth="1.5"
++              strokeLinecap="round"
++              strokeLinejoin="round"
++              className="stroke-gray-100"
++            ></path>
++            <path
++              d="M6 11V17"
++              strokeWidth="1.5"
++              strokeLinecap="round"
++              strokeLinejoin="round"
++              className="stroke-gray-100"
++            ></path>
++            <path
++              d="M18 17V7C18 7 18 5 16 5H12"
++              strokeWidth="1.5"
++              strokeLinecap="round"
++              strokeLinejoin="round"
++              className="stroke-gray-100"
++            ></path>
++            <path
++              d="M4 7.24264L6.12132 5.12132M6.12132 5.12132L8.24264 3M6.12132 5.12132L4 3M6.12132 5.12132L8.24264 7.24264"
++              strokeWidth="1.5"
++              strokeLinecap="round"
++              strokeLinejoin="round"
++              className="stroke-gray-100"
++            ></path>
++          </svg>
+         </CardTitle>
+         <CardDescription className="text-xs text-gray-200">
+           Choose one of the options below to get started
+diff --git a/app/_components/CodeBlock.tsx b/app/_components/CodeBlock.tsx
+deleted file mode 100644
+index a0ffa8f..0000000
+--- a/app/_components/CodeBlock.tsx
++++ /dev/null
+@@ -1,28 +0,0 @@
+-import React, { useState } from "react";
+-import CopyIcon from "./icons/CopyIcon";
+-import toast from "react-hot-toast";
+-interface CodeBlockProps {
+-  code: string;
+-}
+-
+-export default function CodeBlock({ code }: CodeBlockProps) {
+-  function handleCopy() {
+-    navigator.clipboard.writeText(code);
+-    toast.success("Copied!", {
+-      style: {
+-        borderRadius: "10px",
+-        background: "#10331D",
+-        color: "#fff",
+-      },
+-    });
+-  }
+-
+-  return (
+-    <div className="relative bg-black rounded-lg overflow-hidden">
+-      <pre className="text-white text-sm p-4">{code}</pre>
+-      <button className="absolute top-0 right-0 m-4" onClick={handleCopy}>
+-        <CopyIcon />
+-      </button>
+-    </div>
+-  );
+-}
+diff --git a/app/_components/Header.tsx b/app/_components/Header.tsx
+new file mode 100644
+index 0000000..5c6aad8
+--- /dev/null
++++ b/app/_components/Header.tsx
+@@ -0,0 +1,113 @@
++export default function Header() {
++  return (
++    <header className="bg-[#10131C] antialiased">
++      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
++        <div className="flex items-center sm:justify-between sm:gap-4">
++          <div className="relative hidden sm:block">
++            <h1 className="text-lg font-bold text-gray-100">PR BUDDY </h1>
++          </div>
++
++          <div className="flex flex-1 items-center justify-between gap-8 sm:justify-end">
++            <div className="flex gap-4">
++              <button
++                type="button"
++                className="block shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700 sm:hidden"
++              >
++                <span className="sr-only">Search</span>
++                <svg
++                  xmlns="http://www.w3.org/2000/svg"
++                  className="h-5 w-5"
++                  fill="none"
++                  viewBox="0 0 24 24"
++                  stroke="currentColor"
++                  strokeWidth="2"
++                >
++                  <path
++                    strokeLinecap="round"
++                    strokeLinejoin="round"
++                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
++                  />
++                </svg>
++              </button>
++
++              <a
++                href="#"
++                className="block shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
++              >
++                <span className="sr-only">Academy</span>
++                <svg
++                  xmlns="http://www.w3.org/2000/svg"
++                  className="h-5 w-5"
++                  fill="none"
++                  viewBox="0 0 24 24"
++                  stroke="currentColor"
++                  strokeWidth="2"
++                >
++                  <path d="M12 14l9-5-9-5-9 5 9 5z" />
++                  <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
++                  <path
++                    strokeLinecap="round"
++                    strokeLinejoin="round"
++                    d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
++                  />
++                </svg>
++              </a>
++
++              <a
++                href="#"
++                className="block shrink-0 rounded-lg bg-white p-2.5 text-gray-600 shadow-sm hover:text-gray-700"
++              >
++                <span className="sr-only">Notifications</span>
++                <svg
++                  xmlns="http://www.w3.org/2000/svg"
++                  className="h-5 w-5"
++                  fill="none"
++                  viewBox="0 0 24 24"
++                  stroke="currentColor"
++                  strokeWidth="2"
++                >
++                  <path
++                    strokeLinecap="round"
++                    strokeLinejoin="round"
++                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
++                  />
++                </svg>
++              </a>
++            </div>
++
++            <button
++              type="button"
++              className="group flex shrink-0 items-center rounded-lg transition"
++            >
++              <span className="sr-only">Menu</span>
++              <img
++                alt="Man"
++                src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
++                className="h-10 w-10 rounded-full object-cover"
++              />
++
++              <p className="ms-2 hidden text-left text-xs sm:block">
++                <strong className="block font-medium">Eric Frusciante</strong>
++
++                <span className="text-gray-500"> eric@frusciante.com </span>
++              </p>
++
++              <svg
++                xmlns="http://www.w3.org/2000/svg"
++                className="ms-4 hidden h-5 w-5 text-gray-500 transition group-hover:text-gray-700 sm:block"
++                viewBox="0 0 20 20"
++                fill="currentColor"
++              >
++                <path
++                  fillRule="evenodd"
++                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
++                  clipRule="evenodd"
++                />
++              </svg>
++            </button>
++          </div>
++        </div>
++      </div>
++    </header>
++  );
++}
+diff --git a/app/_components/header/Header.tsx b/app/_components/header/Header.tsx
+deleted file mode 100644
+index f9930ee..0000000
+--- a/app/_components/header/Header.tsx
++++ /dev/null
+@@ -1,27 +0,0 @@
+-import Link from "next/link";
+-
+-import PRIcon from "../icons/PRIcon";
+-import UserInfo from "./UserInfo";
+-
+-export default function Header() {
+-  return (
+-    <header className="bg-[#10131C] antialiased px-12 sm:px-24 md:px-30 lg:px-56">
+-      <div className="mx-auto max-w-screen-xl py-8">
+-        <div className="flex items-center sm:justify-between sm:gap-4">
+-          <Link href={"/"}>
+-            <div className="relative block">
+-              <p className="flex flex-row gap-x-2">
+-                <span className="text-lg font-bold text-gray-100 ">
+-                  PR BUDDY
+-                </span>
+-                <PRIcon />
+-              </p>
+-            </div>
+-          </Link>
+-
+-          <UserInfo />
+-        </div>
+-      </div>
+-    </header>
+-  );
+-}
+diff --git a/app/_components/header/SignOutButton.tsx b/app/_components/header/SignOutButton.tsx
+deleted file mode 100644
+index 53ed53b..0000000
+--- a/app/_components/header/SignOutButton.tsx
++++ /dev/null
+@@ -1,16 +0,0 @@
+-"use client";
+-
+-import { signOut } from "next-auth/react";
+-
+-export default function SignOutButton() {
+-  
+-    function SignOut(e: { preventDefault: () => void }) {
+-    signOut();
+-  }
+-
+-  return (
+-    <button className="bg-white" onClick={SignOut}>
+-      test
+-    </button>
+-  );
+-}
+diff --git a/app/_components/header/UserInfo.tsx b/app/_components/header/UserInfo.tsx
+deleted file mode 100644
+index 0e1fc79..0000000
+--- a/app/_components/header/UserInfo.tsx
++++ /dev/null
+@@ -1,54 +0,0 @@
+-"use client";
+-
+-import { useSession } from "next-auth/react";
+-import SignOutButton from "./SignOutButton";
+-
+-export default function UserInfo() {
+-  const { data: session, status } = useSession();
+-
+-  return (
+-    <div className="flex flex-1 items-center gap-8 justify-end">
+-      <SignOutButton />
+-      {status === "authenticated" ? (
+-        <button
+-          type="button"
+-          className="group flex shrink-0 items-center rounded-lg transition"
+-        >
+-          <img
+-            alt="Man"
+-            src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+-            className="h-10 w-10 rounded-full object-cover"
+-          />
+-
+-          <p className="ms-2 hidden text-left text-xs sm:block">
+-            <strong className="block font-medium text-white">
+-              Eric Frusciante
+-            </strong>
+-
+-            <span className="text-gray-500"> eric@frusciante.com </span>
+-          </p>
+-
+-          <svg
+-            xmlns="http://www.w3.org/2000/svg"
+-            className="ms-4 hidden h-5 w-5 text-gray-500 transition group-hover:text-gray-700 sm:block"
+-            viewBox="0 0 20 20"
+-            fill="currentColor"
+-          >
+-            <path
+-              fillRule="evenodd"
+-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+-              clipRule="evenodd"
+-            />
+-          </svg>
+-        </button>
+-      ) : (
+-        <button
+-          type="button"
+-          className="group flex shrink-0 items-center rounded-lg transition"
+-        >
+-          Sign in
+-        </button>
+-      )}
+-    </div>
+-  );
+-}
+diff --git a/app/_components/icons/CopyIcon.tsx b/app/_components/icons/CopyIcon.tsx
+deleted file mode 100644
+index 37223e0..0000000
+--- a/app/_components/icons/CopyIcon.tsx
++++ /dev/null
+@@ -1,19 +0,0 @@
+-export default function CopyIcon() {
+-  return (
+-    <svg
+-      className="text-white"
+-      xmlns="http://www.w3.org/2000/svg"
+-      width="18"
+-      height="18"
+-      viewBox="0 0 24 24"
+-      fill="none"
+-      stroke="currentColor"
+-      strokeWidth="2"
+-      strokeLinecap="round"
+-      strokeLinejoin="round"
+-    >
+-      <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+-      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+-    </svg>
+-  );
+-}
+diff --git a/app/_components/icons/PRIcon.tsx b/app/_components/icons/PRIcon.tsx
+deleted file mode 100644
+index 25ef51f..0000000
+--- a/app/_components/icons/PRIcon.tsx
++++ /dev/null
+@@ -1,52 +0,0 @@
+-export default function PRIcon(
+-  props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>
+-) {
+-  return (
+-    <svg
+-      {...props}
+-      width="24px"
+-      height="24px"
+-      viewBox="0 0 24 24"
+-      strokeWidth="1.5"
+-      fill="none"
+-      xmlns="http://www.w3.org/2000/svg"
+-      className="stroke-gray-100"
+-    >
+-      <path
+-        d="M18 21C19.1046 21 20 20.1046 20 19C20 17.8954 19.1046 17 18 17C16.8954 17 16 17.8954 16 19C16 20.1046 16.8954 21 18 21Z"
+-        strokeWidth="1.5"
+-        strokeLinecap="round"
+-        strokeLinejoin="round"
+-        className="stroke-gray-100"
+-      ></path>
+-      <path
+-        d="M6 21C7.10457 21 8 20.1046 8 19C8 17.8954 7.10457 17 6 17C4.89543 17 4 17.8954 4 19C4 20.1046 4.89543 21 6 21Z"
+-        strokeWidth="1.5"
+-        strokeLinecap="round"
+-        strokeLinejoin="round"
+-        className="stroke-gray-100"
+-      ></path>
+-      <path
+-        d="M6 11V17"
+-        strokeWidth="1.5"
+-        strokeLinecap="round"
+-        strokeLinejoin="round"
+-        className="stroke-gray-100"
+-      ></path>
+-      <path
+-        d="M18 17V7C18 7 18 5 16 5H12"
+-        strokeWidth="1.5"
+-        strokeLinecap="round"
+-        strokeLinejoin="round"
+-        className="stroke-gray-100"
+-      ></path>
+-      <path
+-        d="M4 7.24264L6.12132 5.12132M6.12132 5.12132L8.24264 3M6.12132 5.12132L4 3M6.12132 5.12132L8.24264 7.24264"
+-        strokeWidth="1.5"
+-        strokeLinecap="round"
+-        strokeLinejoin="round"
+-        className="stroke-gray-100"
+-      ></path>
+-    </svg>
+-  );
+-}
+diff --git a/app/generate/page.tsx b/app/generate/page.tsx
+index ab342ca..eb18534 100644
+--- a/app/generate/page.tsx
++++ b/app/generate/page.tsx
+@@ -1,48 +1,13 @@
+-"use client";
+-
+ import React from "react";
+-import Header from "../_components/header/Header";
+-import CodeBlock from "../_components/CodeBlock";
++import Header from "../_components/Header";
+ 
+ export default function GeneratePage() {
+   return (
+-    <div className="min-h-screen">
++    <>
+       <Header />
+-      <main className="antialiased flex flex-col justify-center px-12 sm:px-24 md:px-30 lg:px-56">
+-        <div className="py-10">
+-          <div className="py-2.5">
+-            <h1 className="font-bold text-2xl text-gray-100 underline py-2.5">
+-              1. Get the 'diff'
+-            </h1>
+-            <p className=" text-gray-300 py-2.5">
+-              The first step is to generate a "diff" file. This file will
+-              contain all the changes you've made between two commits (i.e. in
+-              the PR). To generate this, first you have to get the two commit
+-              hashes. One will be the commit you made when opening the PR, and
+-              the second will be the most recent commit in the branch/PR. Check
+-              out the example below.
+-            </p>
+-            <div className="py-2.5">
+-              <CodeBlock code="Test" />
+-            </div>
+-          </div>
+-          <div className="py-2.5">
+-            <h1 className="font-bold text-2xl text-gray-100 underline">
+-              2. Upload the diff file
+-            </h1>
+-          </div>
+-          <div className="py-2.5">
+-            <h1 className="font-bold text-2xl text-gray-100 underline">
+-              3. Pick what you want
+-            </h1>
+-          </div>
+-          <div className="py-2.5">
+-            <h1 className="font-bold text-2xl text-gray-100 underline">
+-              4. Get the PR description
+-            </h1>
+-          </div>
+-        </div>
++      <main className="antialiased flex min-h-screen flex-col items-center justify-center p-24 bg-[#10131C]">
++        <h1 className="text-slate-50">Generate Your PR Description</h1>
+       </main>
+-    </div>
++    </>
+   );
+ }
+diff --git a/app/layout.tsx b/app/layout.tsx
+index 6b5b96a..55adf2e 100644
+--- a/app/layout.tsx
++++ b/app/layout.tsx
+@@ -3,13 +3,11 @@ import { Inter } from "next/font/google";
+ import "./styles/globals.css";
+ import Provider from "@/lib/provider";
+ 
+-import { Toaster } from "react-hot-toast";
+-
+ const inter = Inter({ subsets: ["latin"] });
+ 
+ export const metadata: Metadata = {
+-  title: "PR Buddy",
+-  description: "An easier way to write your PR descriptions.",
++  title: "Create Next App",
++  description: "Generated by create next app",
+ };
+ 
+ export default function RootLayout({
+@@ -20,10 +18,7 @@ export default function RootLayout({
+   return (
+     <html lang="en">
+       <body className={inter.className}>
+-        <Provider>
+-          {children}
+-          <Toaster />
+-        </Provider>
++        <Provider>{children}</Provider>
+       </body>
+     </html>
+   );
+diff --git a/bun.lockb b/bun.lockb
+index cbc0665..73978d8 100755
+Binary files a/bun.lockb and b/bun.lockb differ
+diff --git a/package-lock.json b/package-lock.json
+index 679d971..0e84a70 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -8,15 +8,12 @@
+       "name": "prbuddy",
+       "version": "0.1.0",
+       "dependencies": {
+-        "@next-auth/prisma-adapter": "^1.0.7",
++        "@next-auth/prisma-adapter": "^0.4.4-canary.81",
+         "@prisma/client": "^5.7.0",
+-        "@radix-ui/react-label": "^2.0.2",
+-        "@radix-ui/react-slot": "^1.0.2",
+         "class-variance-authority": "^0.7.0",
+         "clsx": "^2.0.0",
+         "lucide-react": "^0.294.0",
+         "next": "14.0.4",
+-        "next-auth": "^4.24.5",
+         "react": "^18",
+         "react-dom": "^18",
+         "tailwind-merge": "^2.1.0",
+@@ -184,12 +181,12 @@
+       }
+     },
+     "node_modules/@next-auth/prisma-adapter": {
+-      "version": "1.0.7",
+-      "resolved": "https://registry.npmjs.org/@next-auth/prisma-adapter/-/prisma-adapter-1.0.7.tgz",
+-      "integrity": "sha512-Cdko4KfcmKjsyHFrWwZ//lfLUbcLqlyFqjd/nYE2m3aZ7tjMNUjpks47iw7NTCnXf+5UWz5Ypyt1dSs1EP5QJw==",
++      "version": "0.4.4-canary.81",
++      "resolved": "https://registry.npmjs.org/@next-auth/prisma-adapter/-/prisma-adapter-0.4.4-canary.81.tgz",
++      "integrity": "sha512-RXdjrRkK4A3ksMdGXIyDmYBcgdpmbVqSGDoaH2X7P/MLBngh3/GO8TFGpiLwiUt1o4+Py81KICZYvBgatRP+Ew==",
+       "peerDependencies": {
+-        "@prisma/client": ">=2.26.0 || >=3",
+-        "next-auth": "^4"
++        "@prisma/client": ">=2.16.0",
++        "next-auth": ">=3.19.2"
+       }
+     },
+     "node_modules/@next/env": {
+@@ -218,126 +215,6 @@
+         "node": ">= 10"
+       }
+     },
+-    "node_modules/@next/swc-darwin-x64": {
+-      "version": "14.0.4",
+-      "resolved": "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-14.0.4.tgz",
+-      "integrity": "sha512-IZQ3C7Bx0k2rYtrZZxKKiusMTM9WWcK5ajyhOZkYYTCc8xytmwSzR1skU7qLgVT/EY9xtXDG0WhY6fyujnI3rw==",
+-      "cpu": [
+-        "x64"
+-      ],
+-      "optional": true,
+-      "os": [
+-        "darwin"
+-      ],
+-      "engines": {
+-        "node": ">= 10"
+-      }
+-    },
+-    "node_modules/@next/swc-linux-arm64-gnu": {
+-      "version": "14.0.4",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-14.0.4.tgz",
+-      "integrity": "sha512-VwwZKrBQo/MGb1VOrxJ6LrKvbpo7UbROuyMRvQKTFKhNaXjUmKTu7wxVkIuCARAfiI8JpaWAnKR+D6tzpCcM4w==",
+-      "cpu": [
+-        "arm64"
+-      ],
+-      "optional": true,
+-      "os": [
+-        "linux"
+-      ],
+-      "engines": {
+-        "node": ">= 10"
+-      }
+-    },
+-    "node_modules/@next/swc-linux-arm64-musl": {
+-      "version": "14.0.4",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-14.0.4.tgz",
+-      "integrity": "sha512-8QftwPEW37XxXoAwsn+nXlodKWHfpMaSvt81W43Wh8dv0gkheD+30ezWMcFGHLI71KiWmHK5PSQbTQGUiidvLQ==",
+-      "cpu": [
+-        "arm64"
+-      ],
+-      "optional": true,
+-      "os": [
+-        "linux"
+-      ],
+-      "engines": {
+-        "node": ">= 10"
+-      }
+-    },
+-    "node_modules/@next/swc-linux-x64-gnu": {
+-      "version": "14.0.4",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-14.0.4.tgz",
+-      "integrity": "sha512-/s/Pme3VKfZAfISlYVq2hzFS8AcAIOTnoKupc/j4WlvF6GQ0VouS2Q2KEgPuO1eMBwakWPB1aYFIA4VNVh667A==",
+-      "cpu": [
+-        "x64"
+-      ],
+-      "optional": true,
+-      "os": [
+-        "linux"
+-      ],
+-      "engines": {
+-        "node": ">= 10"
+-      }
+-    },
+-    "node_modules/@next/swc-linux-x64-musl": {
+-      "version": "14.0.4",
+-      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-14.0.4.tgz",
+-      "integrity": "sha512-m8z/6Fyal4L9Bnlxde5g2Mfa1Z7dasMQyhEhskDATpqr+Y0mjOBZcXQ7G5U+vgL22cI4T7MfvgtrM2jdopqWaw==",
+-      "cpu": [
+-        "x64"
+-      ],
+-      "optional": true,
+-      "os": [
+-        "linux"
+-      ],
+-      "engines": {
+-        "node": ">= 10"
+-      }
+-    },
+-    "node_modules/@next/swc-win32-arm64-msvc": {
+-      "version": "14.0.4",
+-      "resolved": "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-14.0.4.tgz",
+-      "integrity": "sha512-7Wv4PRiWIAWbm5XrGz3D8HUkCVDMMz9igffZG4NB1p4u1KoItwx9qjATHz88kwCEal/HXmbShucaslXCQXUM5w==",
+-      "cpu": [
+-        "arm64"
+-      ],
+-      "optional": true,
+-      "os": [
+-        "win32"
+-      ],
+-      "engines": {
+-        "node": ">= 10"
+-      }
+-    },
+-    "node_modules/@next/swc-win32-ia32-msvc": {
+-      "version": "14.0.4",
+-      "resolved": "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-14.0.4.tgz",
+-      "integrity": "sha512-zLeNEAPULsl0phfGb4kdzF/cAVIfaC7hY+kt0/d+y9mzcZHsMS3hAS829WbJ31DkSlVKQeHEjZHIdhN+Pg7Gyg==",
+-      "cpu": [
+-        "ia32"
+-      ],
+-      "optional": true,
+-      "os": [
+-        "win32"
+-      ],
+-      "engines": {
+-        "node": ">= 10"
+-      }
+-    },
+-    "node_modules/@next/swc-win32-x64-msvc": {
+-      "version": "14.0.4",
+-      "resolved": "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-14.0.4.tgz",
+-      "integrity": "sha512-yEh2+R8qDlDCjxVpzOTEpBLQTEFAcP2A8fUFLaWNap9GitYKkKv1//y2S6XY6zsR4rCOPRpU7plYDR+az2n30A==",
+-      "cpu": [
+-        "x64"
+-      ],
+-      "optional": true,
+-      "os": [
+-        "win32"
+-      ],
+-      "engines": {
+-        "node": ">= 10"
+-      }
+-    },
+     "node_modules/@nodelib/fs.scandir": {
+       "version": "2.1.5",
+       "license": "MIT",
+@@ -371,6 +248,7 @@
+       "version": "1.1.1",
+       "resolved": "https://registry.npmjs.org/@panva/hkdf/-/hkdf-1.1.1.tgz",
+       "integrity": "sha512-dhPeilub1NuIG0X5Kvhh9lH4iW3ZsHlnzwgwbOlgwQ2wG1IqFzsgHqmKPk3WzsdWAeaxKJxgM0+W433RmN45GA==",
++      "peer": true,
+       "funding": {
+         "url": "https://github.com/sponsors/panva"
+       }
+@@ -437,87 +315,6 @@
+         "@prisma/debug": "5.7.0"
+       }
+     },
+-    "node_modules/@radix-ui/react-compose-refs": {
+-      "version": "1.0.1",
+-      "resolved": "https://registry.npmjs.org/@radix-ui/react-compose-refs/-/react-compose-refs-1.0.1.tgz",
+-      "integrity": "sha512-fDSBgd44FKHa1FRMU59qBMPFcl2PZE+2nmqunj+BWFyYYjnhIDWL2ItDs3rrbJDQOtzt5nIebLCQc4QRfz6LJw==",
+-      "dependencies": {
+-        "@babel/runtime": "^7.13.10"
+-      },
+-      "peerDependencies": {
+-        "@types/react": "*",
+-        "react": "^16.8 || ^17.0 || ^18.0"
+-      },
+-      "peerDependenciesMeta": {
+-        "@types/react": {
+-          "optional": true
+-        }
+-      }
+-    },
+-    "node_modules/@radix-ui/react-label": {
+-      "version": "2.0.2",
+-      "resolved": "https://registry.npmjs.org/@radix-ui/react-label/-/react-label-2.0.2.tgz",
+-      "integrity": "sha512-N5ehvlM7qoTLx7nWPodsPYPgMzA5WM8zZChQg8nyFJKnDO5WHdba1vv5/H6IO5LtJMfD2Q3wh1qHFGNtK0w3bQ==",
+-      "dependencies": {
+-        "@babel/runtime": "^7.13.10",
+-        "@radix-ui/react-primitive": "1.0.3"
+-      },
+-      "peerDependencies": {
+-        "@types/react": "*",
+-        "@types/react-dom": "*",
+-        "react": "^16.8 || ^17.0 || ^18.0",
+-        "react-dom": "^16.8 || ^17.0 || ^18.0"
+-      },
+-      "peerDependenciesMeta": {
+-        "@types/react": {
+-          "optional": true
+-        },
+-        "@types/react-dom": {
+-          "optional": true
+-        }
+-      }
+-    },
+-    "node_modules/@radix-ui/react-primitive": {
+-      "version": "1.0.3",
+-      "resolved": "https://registry.npmjs.org/@radix-ui/react-primitive/-/react-primitive-1.0.3.tgz",
+-      "integrity": "sha512-yi58uVyoAcK/Nq1inRY56ZSjKypBNKTa/1mcL8qdl6oJeEaDbOldlzrGn7P6Q3Id5d+SYNGc5AJgc4vGhjs5+g==",
+-      "dependencies": {
+-        "@babel/runtime": "^7.13.10",
+-        "@radix-ui/react-slot": "1.0.2"
+-      },
+-      "peerDependencies": {
+-        "@types/react": "*",
+-        "@types/react-dom": "*",
+-        "react": "^16.8 || ^17.0 || ^18.0",
+-        "react-dom": "^16.8 || ^17.0 || ^18.0"
+-      },
+-      "peerDependenciesMeta": {
+-        "@types/react": {
+-          "optional": true
+-        },
+-        "@types/react-dom": {
+-          "optional": true
+-        }
+-      }
+-    },
+-    "node_modules/@radix-ui/react-slot": {
+-      "version": "1.0.2",
+-      "resolved": "https://registry.npmjs.org/@radix-ui/react-slot/-/react-slot-1.0.2.tgz",
+-      "integrity": "sha512-YeTpuq4deV+6DusvVUW4ivBgnkHwECUu0BiN43L5UCDFgdhsRUWAghhTF5MbvNTPzmiFOx90asDSUjWuCNapwg==",
+-      "dependencies": {
+-        "@babel/runtime": "^7.13.10",
+-        "@radix-ui/react-compose-refs": "1.0.1"
+-      },
+-      "peerDependencies": {
+-        "@types/react": "*",
+-        "react": "^16.8 || ^17.0 || ^18.0"
+-      },
+-      "peerDependenciesMeta": {
+-        "@types/react": {
+-          "optional": true
+-        }
+-      }
+-    },
+     "node_modules/@rushstack/eslint-patch": {
+       "version": "1.6.0",
+       "dev": true,
+@@ -545,12 +342,12 @@
+     },
+     "node_modules/@types/prop-types": {
+       "version": "15.7.11",
+-      "devOptional": true,
++      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/@types/react": {
+       "version": "18.2.42",
+-      "devOptional": true,
++      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@types/prop-types": "*",
+@@ -560,7 +357,7 @@
+     },
+     "node_modules/@types/react-dom": {
+       "version": "18.2.17",
+-      "devOptional": true,
++      "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@types/react": "*"
+@@ -568,7 +365,7 @@
+     },
+     "node_modules/@types/scheduler": {
+       "version": "0.16.8",
+-      "devOptional": true,
++      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/@typescript-eslint/parser": {
+@@ -1190,6 +987,7 @@
+       "version": "0.5.0",
+       "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.5.0.tgz",
+       "integrity": "sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==",
++      "peer": true,
+       "engines": {
+         "node": ">= 0.6"
+       }
+@@ -1219,7 +1017,7 @@
+     },
+     "node_modules/csstype": {
+       "version": "3.1.3",
+-      "devOptional": true,
++      "dev": true,
+       "license": "MIT"
+     },
+     "node_modules/damerau-levenshtein": {
+@@ -2600,6 +2398,7 @@
+       "version": "4.15.4",
+       "resolved": "https://registry.npmjs.org/jose/-/jose-4.15.4.tgz",
+       "integrity": "sha512-W+oqK4H+r5sITxfxpSU+MMdr/YSWGvgZMQDIsNoBDGGy4i7GBPTtvFKibQzW06n3U3TqHjhvBJsirShsEJ6eeQ==",
++      "peer": true,
+       "funding": {
+         "url": "https://github.com/sponsors/panva"
+       }
+@@ -2872,6 +2671,7 @@
+       "version": "4.24.5",
+       "resolved": "https://registry.npmjs.org/next-auth/-/next-auth-4.24.5.tgz",
+       "integrity": "sha512-3RafV3XbfIKk6rF6GlLE4/KxjTcuMCifqrmD+98ejFq73SRoj2rmzoca8u764977lH/Q7jo6Xu6yM+Re1Mz/Og==",
++      "peer": true,
+       "dependencies": {
+         "@babel/runtime": "^7.20.13",
+         "@panva/hkdf": "^1.0.2",
+@@ -2944,7 +2744,8 @@
+     "node_modules/oauth": {
+       "version": "0.9.15",
+       "resolved": "https://registry.npmjs.org/oauth/-/oauth-0.9.15.tgz",
+-      "integrity": "sha512-a5ERWK1kh38ExDEfoO6qUHJb32rd7aYmPHuyCu3Fta/cnICvYmgd2uhuKXvPD+PXB+gCEYYEaQdIRAjCOwAKNA=="
++      "integrity": "sha512-a5ERWK1kh38ExDEfoO6qUHJb32rd7aYmPHuyCu3Fta/cnICvYmgd2uhuKXvPD+PXB+gCEYYEaQdIRAjCOwAKNA==",
++      "peer": true
+     },
+     "node_modules/object-assign": {
+       "version": "4.1.1",
+@@ -3065,6 +2866,7 @@
+       "version": "5.0.3",
+       "resolved": "https://registry.npmjs.org/oidc-token-hash/-/oidc-token-hash-5.0.3.tgz",
+       "integrity": "sha512-IF4PcGgzAr6XXSff26Sk/+P4KZFJVuHAJZj3wgO3vX2bMdNVp/QXTP3P7CEm9V1IdG8lDLY3HhiqpsE/nOwpPw==",
++      "peer": true,
+       "engines": {
+         "node": "^10.13.0 || >=12.0.0"
+       }
+@@ -3080,6 +2882,7 @@
+       "version": "5.6.1",
+       "resolved": "https://registry.npmjs.org/openid-client/-/openid-client-5.6.1.tgz",
+       "integrity": "sha512-PtrWsY+dXg6y8mtMPyL/namZSYVz8pjXz3yJiBNZsEdCnu9miHLB4ELVC85WvneMKo2Rg62Ay7NkuCpM0bgiLQ==",
++      "peer": true,
+       "dependencies": {
+         "jose": "^4.15.1",
+         "lru-cache": "^6.0.0",
+@@ -3094,6 +2897,7 @@
+       "version": "2.2.0",
+       "resolved": "https://registry.npmjs.org/object-hash/-/object-hash-2.2.0.tgz",
+       "integrity": "sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==",
++      "peer": true,
+       "engines": {
+         "node": ">= 6"
+       }
+@@ -3350,6 +3154,7 @@
+       "version": "10.19.3",
+       "resolved": "https://registry.npmjs.org/preact/-/preact-10.19.3.tgz",
+       "integrity": "sha512-nHHTeFVBTHRGxJXKkKu5hT8C/YWBkPso4/Gad6xuj5dbptt9iF9NZr9pHbPhBrnT2klheu7mHTxTZ/LjwJiEiQ==",
++      "peer": true,
+       "funding": {
+         "type": "opencollective",
+         "url": "https://opencollective.com/preact"
+@@ -3359,6 +3164,7 @@
+       "version": "5.2.6",
+       "resolved": "https://registry.npmjs.org/preact-render-to-string/-/preact-render-to-string-5.2.6.tgz",
+       "integrity": "sha512-JyhErpYOvBV1hEPwIxc/fHWXPfnEGdRKxc8gFdAZ7XV4tlzyzG847XAyEZqoDnynP88akM4eaHcSOzNcLWFguw==",
++      "peer": true,
+       "dependencies": {
+         "pretty-format": "^3.8.0"
+       },
+@@ -3377,7 +3183,8 @@
+     "node_modules/pretty-format": {
+       "version": "3.8.0",
+       "resolved": "https://registry.npmjs.org/pretty-format/-/pretty-format-3.8.0.tgz",
+-      "integrity": "sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew=="
++      "integrity": "sha512-WuxUnVtlWL1OfZFQFuqvnvs6MiAGk9UNsBostyBOB0Is9wb5uRESevA6rnl/rkksXaGX3GzZhPup5d6Vp1nFew==",
++      "peer": true
+     },
+     "node_modules/prisma": {
+       "version": "5.7.0",
+@@ -4165,6 +3972,7 @@
+       "version": "8.3.2",
+       "resolved": "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz",
+       "integrity": "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==",
++      "peer": true,
+       "bin": {
+         "uuid": "dist/bin/uuid"
+       }
+@@ -4291,6 +4099,126 @@
+       "funding": {
+         "url": "https://github.com/sponsors/sindresorhus"
+       }
++    },
++    "node_modules/@next/swc-darwin-x64": {
++      "version": "14.0.4",
++      "resolved": "https://registry.npmjs.org/@next/swc-darwin-x64/-/swc-darwin-x64-14.0.4.tgz",
++      "integrity": "sha512-IZQ3C7Bx0k2rYtrZZxKKiusMTM9WWcK5ajyhOZkYYTCc8xytmwSzR1skU7qLgVT/EY9xtXDG0WhY6fyujnI3rw==",
++      "cpu": [
++        "x64"
++      ],
++      "optional": true,
++      "os": [
++        "darwin"
++      ],
++      "engines": {
++        "node": ">= 10"
++      }
++    },
++    "node_modules/@next/swc-linux-arm64-gnu": {
++      "version": "14.0.4",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-14.0.4.tgz",
++      "integrity": "sha512-VwwZKrBQo/MGb1VOrxJ6LrKvbpo7UbROuyMRvQKTFKhNaXjUmKTu7wxVkIuCARAfiI8JpaWAnKR+D6tzpCcM4w==",
++      "cpu": [
++        "arm64"
++      ],
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      }
++    },
++    "node_modules/@next/swc-linux-arm64-musl": {
++      "version": "14.0.4",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-14.0.4.tgz",
++      "integrity": "sha512-8QftwPEW37XxXoAwsn+nXlodKWHfpMaSvt81W43Wh8dv0gkheD+30ezWMcFGHLI71KiWmHK5PSQbTQGUiidvLQ==",
++      "cpu": [
++        "arm64"
++      ],
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      }
++    },
++    "node_modules/@next/swc-linux-x64-gnu": {
++      "version": "14.0.4",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-14.0.4.tgz",
++      "integrity": "sha512-/s/Pme3VKfZAfISlYVq2hzFS8AcAIOTnoKupc/j4WlvF6GQ0VouS2Q2KEgPuO1eMBwakWPB1aYFIA4VNVh667A==",
++      "cpu": [
++        "x64"
++      ],
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      }
++    },
++    "node_modules/@next/swc-linux-x64-musl": {
++      "version": "14.0.4",
++      "resolved": "https://registry.npmjs.org/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-14.0.4.tgz",
++      "integrity": "sha512-m8z/6Fyal4L9Bnlxde5g2Mfa1Z7dasMQyhEhskDATpqr+Y0mjOBZcXQ7G5U+vgL22cI4T7MfvgtrM2jdopqWaw==",
++      "cpu": [
++        "x64"
++      ],
++      "optional": true,
++      "os": [
++        "linux"
++      ],
++      "engines": {
++        "node": ">= 10"
++      }
++    },
++    "node_modules/@next/swc-win32-arm64-msvc": {
++      "version": "14.0.4",
++      "resolved": "https://registry.npmjs.org/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-14.0.4.tgz",
++      "integrity": "sha512-7Wv4PRiWIAWbm5XrGz3D8HUkCVDMMz9igffZG4NB1p4u1KoItwx9qjATHz88kwCEal/HXmbShucaslXCQXUM5w==",
++      "cpu": [
++        "arm64"
++      ],
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">= 10"
++      }
++    },
++    "node_modules/@next/swc-win32-ia32-msvc": {
++      "version": "14.0.4",
++      "resolved": "https://registry.npmjs.org/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-14.0.4.tgz",
++      "integrity": "sha512-zLeNEAPULsl0phfGb4kdzF/cAVIfaC7hY+kt0/d+y9mzcZHsMS3hAS829WbJ31DkSlVKQeHEjZHIdhN+Pg7Gyg==",
++      "cpu": [
++        "ia32"
++      ],
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">= 10"
++      }
++    },
++    "node_modules/@next/swc-win32-x64-msvc": {
++      "version": "14.0.4",
++      "resolved": "https://registry.npmjs.org/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-14.0.4.tgz",
++      "integrity": "sha512-yEh2+R8qDlDCjxVpzOTEpBLQTEFAcP2A8fUFLaWNap9GitYKkKv1//y2S6XY6zsR4rCOPRpU7plYDR+az2n30A==",
++      "cpu": [
++        "x64"
++      ],
++      "optional": true,
++      "os": [
++        "win32"
++      ],
++      "engines": {
++        "node": ">= 10"
++      }
+     }
+   }
+ }
+diff --git a/package.json b/package.json
+index 3e7c104..dd8a965 100644
+--- a/package.json
++++ b/package.json
+@@ -13,8 +13,6 @@
+     "@prisma/client": "^5.7.0",
+     "@radix-ui/react-label": "^2.0.2",
+     "@radix-ui/react-slot": "^1.0.2",
+-    "@radix-ui/react-toast": "^1.1.5",
+-    "@radix-ui/react-tooltip": "^1.0.7",
+     "class-variance-authority": "^0.7.0",
+     "clsx": "^2.0.0",
+     "lucide-react": "^0.294.0",
+@@ -22,7 +20,6 @@
+     "next-auth": "^4.24.5",
+     "react": "^18",
+     "react-dom": "^18",
+-    "react-hot-toast": "^2.4.1",
+     "tailwind-merge": "^2.1.0",
+     "tailwindcss-animate": "^1.0.7"
+   },
+diff --git a/public/next.svg b/public/next.svg
+new file mode 100644
+index 0000000..5174b28
+--- /dev/null
++++ b/public/next.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 394 80"><path fill="#000" d="M262 0h68.5v12.7h-27.2v66.6h-13.6V12.7H262V0ZM149 0v12.7H94v20.4h44.3v12.6H94v21h55v12.6H80.5V0h68.7zm34.3 0h-17.8l63.8 79.4h17.9l-32-39.7 32-39.6h-17.9l-23 28.6-23-28.6zm18.3 56.7-9-11-27.1 33.7h17.8l18.3-22.7z"/><path fill="#000" d="M81 79.3 17 0H0v79.3h13.6V17l50.2 62.3H81Zm252.6-.4c-1 0-1.8-.4-2.5-1s-1.1-1.6-1.1-2.6.3-1.8 1-2.5 1.6-1 2.6-1 1.8.3 2.5 1a3.4 3.4 0 0 1 .6 4.3 3.7 3.7 0 0 1-3 1.8zm23.2-33.5h6v23.3c0 2.1-.4 4-1.3 5.5a9.1 9.1 0 0 1-3.8 3.5c-1.6.8-3.5 1.3-5.7 1.3-2 0-3.7-.4-5.3-1s-2.8-1.8-3.7-3.2c-.9-1.3-1.4-3-1.4-5h6c.1.8.3 1.6.7 2.2s1 1.2 1.6 1.5c.7.4 1.5.5 2.4.5 1 0 1.8-.2 2.4-.6a4 4 0 0 0 1.6-1.8c.3-.8.5-1.8.5-3V45.5zm30.9 9.1a4.4 4.4 0 0 0-2-3.3 7.5 7.5 0 0 0-4.3-1.1c-1.3 0-2.4.2-3.3.5-.9.4-1.6 1-2 1.6a3.5 3.5 0 0 0-.3 4c.3.5.7.9 1.3 1.2l1.8 1 2 .5 3.2.8c1.3.3 2.5.7 3.7 1.2a13 13 0 0 1 3.2 1.8 8.1 8.1 0 0 1 3 6.5c0 2-.5 3.7-1.5 5.1a10 10 0 0 1-4.4 3.5c-1.8.8-4.1 1.2-6.8 1.2-2.6 0-4.9-.4-6.8-1.2-2-.8-3.4-2-4.5-3.5a10 10 0 0 1-1.7-5.6h6a5 5 0 0 0 3.5 4.6c1 .4 2.2.6 3.4.6 1.3 0 2.5-.2 3.5-.6 1-.4 1.8-1 2.4-1.7a4 4 0 0 0 .8-2.4c0-.9-.2-1.6-.7-2.2a11 11 0 0 0-2.1-1.4l-3.2-1-3.8-1c-2.8-.7-5-1.7-6.6-3.2a7.2 7.2 0 0 1-2.4-5.7 8 8 0 0 1 1.7-5 10 10 0 0 1 4.3-3.5c2-.8 4-1.2 6.4-1.2 2.3 0 4.4.4 6.2 1.2 1.8.8 3.2 2 4.3 3.4 1 1.4 1.5 3 1.5 5h-5.8z"/></svg>
+\ No newline at end of file
+diff --git a/public/vercel.svg b/public/vercel.svg
+new file mode 100644
+index 0000000..d2f8422
+--- /dev/null
++++ b/public/vercel.svg
+@@ -0,0 +1 @@
++<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 283 64"><path fill="black" d="M141 16c-11 0-19 7-19 18s9 18 20 18c7 0 13-3 16-7l-7-5c-2 3-6 4-9 4-5 0-9-3-10-7h28v-3c0-11-8-18-19-18zm-9 15c1-4 4-7 9-7s8 3 9 7h-18zm117-15c-11 0-19 7-19 18s9 18 20 18c6 0 12-3 16-7l-8-5c-2 3-5 4-8 4-5 0-9-3-11-7h28l1-3c0-11-8-18-19-18zm-10 15c2-4 5-7 10-7s8 3 9 7h-19zm-39 3c0 6 4 10 10 10 4 0 7-2 9-5l8 5c-3 5-9 8-17 8-11 0-19-7-19-18s8-18 19-18c8 0 14 3 17 8l-8 5c-2-3-5-5-9-5-6 0-10 4-10 10zm83-29v46h-9V5h9zM37 0l37 64H0L37 0zm92 5-27 48L74 5h10l18 30 17-30h10zm59 12v10l-3-1c-6 0-10 4-10 10v15h-9V17h9v9c0-5 6-9 13-9z"/></svg>
+\ No newline at end of file
