@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./styles/globals.css";
 import Provider from "@/lib/provider";
+import { Analytics } from "@vercel/analytics/react";
 
 import { Toaster } from "react-hot-toast";
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Provider>
           {children}
+          <Analytics />
           <Toaster />
         </Provider>
       </body>
