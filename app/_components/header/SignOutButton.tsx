@@ -3,8 +3,7 @@
 import { signOut } from "next-auth/react";
 
 export default function SignOutButton() {
-  
-    function SignOut(e: { preventDefault: () => void }) {
+  function SignOut(e: { preventDefault: () => void }) {
     signOut();
   }
 

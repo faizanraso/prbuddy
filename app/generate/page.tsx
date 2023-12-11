@@ -13,6 +13,7 @@ export default function GeneratePage() {
         <div className="py-10">
           {GeneratePageContent.map((section) => (
             <GeneratePageSection
+              key={section.title}
               title={section.title}
               content={section.content.join()}
               codeBlock={section.codeBlock}

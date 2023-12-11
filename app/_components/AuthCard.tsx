@@ -50,7 +50,6 @@ export default function AuthCard() {
             </Button>
           </Link>
         </div>
-        <button onClick={() => signOut}>sign out</button>
       </CardContent>
     </Card>
   );

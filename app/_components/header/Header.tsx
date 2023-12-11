@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import PRIcon from "../icons/PRIcon";
-import UserInfo from "./UserInfo";
+import UserNav from "./UserNav";
 
 export default function Header() {
   return (
@@ -18,8 +18,7 @@ export default function Header() {
               </p>
             </div>
           </Link>
-
-          <UserInfo />
+          <UserNav />
         </div>
       </div>
     </header>
