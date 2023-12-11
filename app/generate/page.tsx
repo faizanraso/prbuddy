@@ -19,21 +19,6 @@ export default function GeneratePage() {
               code={section.code}
             />
           ))}
-          <div className="py-2.5">
-            <h1 className="font-bold text-2xl text-gray-100 underline">
-              2. Upload the diff file
-            </h1>
-          </div>
-          <div className="py-2.5">
-            <h1 className="font-bold text-2xl text-gray-100 underline">
-              3. Pick what you want
-            </h1>
-          </div>
-          <div className="py-2.5">
-            <h1 className="font-bold text-2xl text-gray-100 underline">
-              4. Get the PR description
-            </h1>
-          </div>
         </div>
       </main>
     </div>
