@@ -1,15 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-interface FileProps {
-  fileName: string;
-  fileContent: string | ArrayBuffer | null;
+interface UploadFileProps {
+  diffFile?: {
+    fileName: string;
+    fileContent: string | ArrayBuffer | null;
+  };
+  setDiffFile?: any;
 }
 
-export default function UploadFile() {
-  const [file, setFile] = useState<FileProps>();
-
+export default function UploadFile({ diffFile, setDiffFile }: UploadFileProps) {
   function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files ? e.target.files[0] : null;
 
@@ -18,7 +19,7 @@ export default function UploadFile() {
     const reader = new FileReader();
     reader.readAsText(file);
     reader.onload = () => {
-      setFile({ fileName: file.name, fileContent: reader.result });
+      setDiffFile({ fileName: file.name, fileContent: reader.result });
     };
 
     reader.onerror = () => {
@@ -27,10 +28,6 @@ export default function UploadFile() {
       );
     };
   }
-
-  useEffect(() => {
-    console.log(file?.fileContent);
-  }, [file]);
 
   return (
     <div key={2} className="flex items-center justify-center w-full">
@@ -54,9 +51,9 @@ export default function UploadFile() {
               d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
             />
           </svg>
-          {file?.fileName.length ? (
+          {diffFile?.fileName.length ? (
             <p className="text-sm font-bold text-gray-500">
-              {file.fileName} ✅
+              {diffFile.fileName} ✅
             </p>
           ) : (
             <>
