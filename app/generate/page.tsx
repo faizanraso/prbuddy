@@ -11,7 +11,7 @@ export default function GeneratePage() {
     <div className="min-h-screen">
       <Header />
       <main className="antialiased flex flex-col justify-center px-12 sm:px-24 md:px-30 lg:px-56">
-        <div className="py-10">
+        <div className="pt-3 pb-8">
           {GeneratePageContent.map((section) => (
             <div key={section.sectionNumber}>
               <GeneratePageSection
