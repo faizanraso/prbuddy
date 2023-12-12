@@ -1,6 +1,6 @@
 export default function UploadFile() {
   return (
-    <div key={2}>
+    <div>
       <p>Test</p>
     </div>
   );

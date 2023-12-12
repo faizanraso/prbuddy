@@ -15,14 +15,15 @@ export default function GeneratePage() {
           {GeneratePageContent.map((section) => (
             <>
               <GeneratePageSection
-                key={section.section}
+                key={section.sectionNumber}
                 title={section.title}
                 content={section.content.join()}
                 codeBlock={section.codeBlock}
                 code={section.code}
               />
-
-              {section.section === 2 ? <UploadFile /> : null}
+              {section.sectionNumber === 2 ? (
+                <UploadFile key={section.sectionNumber} />
+              ) : null}
             </>
           ))}
         </div>
