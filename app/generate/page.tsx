@@ -5,7 +5,7 @@ import Header from "../_components/header/Header";
 import { GeneratePageContent } from "../_components/generatePage/GeneratePageContent";
 import GeneratePageSection from "../_components/generatePage/GeneratePageSection";
 import UploadFile from "../_components/generatePage/UploadFile";
-import OptionsSelect from "../_components/generatePage/OptionsSelect";
+import GenerateDescription from "../_components/generatePage/GenerateDescription";
 
 interface FileProps {
   fileName: string;
@@ -36,7 +36,7 @@ export default function GeneratePage() {
                   setDiffFile={setDiffFile}
                 />
               ) : null}
-              {section.sectionNumber === 3 ? <OptionsSelect /> : null}
+              {section.sectionNumber === 3 ? <GenerateDescription /> : null}
             </div>
           ))}
         </div>
