@@ -32,7 +32,7 @@ export const GeneratePageContent = [
     sectionNumber: 4,
     title: "4. Generate PR Description",
     content: [
-      "Click the 'Generate' button and observe as your PR description is automatically generated.",
+      "Provide your OpenAI API and click the 'Generate' button and observe as your PR description is generated.",
     ],
     codeBlock: false,
     code: "",
