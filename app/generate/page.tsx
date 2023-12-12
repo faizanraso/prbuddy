@@ -13,7 +13,7 @@ export default function GeneratePage() {
       <main className="antialiased flex flex-col justify-center px-12 sm:px-24 md:px-30 lg:px-56">
         <div className="py-10">
           {GeneratePageContent.map((section) => (
-            <>
+            <div key={section.sectionNumber}>
               <GeneratePageSection
                 key={section.sectionNumber}
                 title={section.title}
@@ -24,7 +24,7 @@ export default function GeneratePage() {
               {section.sectionNumber === 2 ? (
                 <UploadFile key={section.sectionNumber} />
               ) : null}
-            </>
+            </div>
           ))}
         </div>
       </main>
