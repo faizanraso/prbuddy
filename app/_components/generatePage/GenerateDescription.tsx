@@ -2,6 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import {
+  createParser,
+  ParsedEvent,
+  ReconnectInterval,
+} from "eventsource-parser";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -47,8 +52,10 @@ export default function GenerateDescription({
     });
   }
 
-  function generatePRDescription(e: React.FormEvent<HTMLFormElement>) {
+  async function generatePRDescription(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
+
     if (!diffFile?.fileContent) {
       toast.error("No diff file uploaded", {
         style: {
@@ -60,7 +67,52 @@ export default function GenerateDescription({
       return;
     }
 
-    // generate
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const onParse = (event: ParsedEvent | ReconnectInterval) => {
+      if (event.type === "event") {
+        const data = event.data;
+        try {
+          const text = JSON.parse(data).text ?? "";
+          setResponse((prev) => prev + text);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+
+    // https://web.dev/streams/#the-getreader-and-read-methods
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    const parser = createParser(onParse);
+    let done = false;
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      parser.feed(chunkValue);
+    }
+    
+    // scrollToBios();
+    setIsLoading(false);
   }
 
   return (
