@@ -1,24 +1,30 @@
+import { NextRequest } from "next/server";
 import { OpenAIStream, OpenAIStreamPayload } from "../../../utils/OpenAIStream";
 
 if (!process.env.OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
-const handler = async (req: Request): Promise<Response> => {
-  const { prompt, APIKey } = (await req.json()) as {
+export async function POST(req: NextRequest) {
+  const { prompt, userProvidedAPIKey } = (await req.json()) as {
     prompt?: string;
-    APIKey?: string;
+    userProvidedAPIKey?: string;
   };
 
   if (!prompt) {
     return new Response("No prompt in the request", { status: 400 });
   }
 
-  if (!APIKey) {
+  if (!userProvidedAPIKey) {
     return new Response("No API Key in the request", { status: 400 });
   }
+
+  const apiKey =
+    userProvidedAPIKey === process.env.API_KEY_ALTERNATIVE
+      ? process.env.OPEN_AI_API_KEY
+      : userProvidedAPIKey;
 
   const payload: OpenAIStreamPayload = {
     model: "gpt-3.5-turbo",
@@ -32,7 +38,7 @@ const handler = async (req: Request): Promise<Response> => {
     n: 1,
   };
 
-  const stream = await OpenAIStream(payload, APIKey);
+  const stream = await OpenAIStream(payload, apiKey!);
   // return stream response (SSE)
   return new Response(stream, {
     headers: new Headers({
@@ -44,6 +50,4 @@ const handler = async (req: Request): Promise<Response> => {
       "Cache-Control": "no-cache",
     }),
   });
-};
-
-export default handler;
+}

@@ -30,7 +30,7 @@ export default function GenerateDescription({
   const [copied, setCopied] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [APIKey, setAPIKey] = useState<string>("");
+  const [userProvidedAPIKey, setUserProvidedAPIKey] = useState<string>("");
 
   const responseRef = useRef<HTMLDivElement | null>(null);
 
@@ -70,7 +70,7 @@ export default function GenerateDescription({
   }
 
   function handleApiKeyInput(e: React.ChangeEvent<HTMLInputElement>) {
-    setAPIKey(e.target.value);
+    setUserProvidedAPIKey(e.target.value);
   }
 
   async function generatePRDescription(e: React.FormEvent<HTMLFormElement>) {
@@ -96,7 +96,7 @@ export default function GenerateDescription({
       },
       body: JSON.stringify({
         prompt,
-        APIKey,
+        userProvidedAPIKey,
       }),
     });
 

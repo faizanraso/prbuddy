@@ -25,7 +25,7 @@ export interface OpenAIStreamPayload {
 
 export async function OpenAIStream(
   payload: OpenAIStreamPayload,
-  APIKey: string
+  apiKey: string
 ) {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
@@ -33,7 +33,7 @@ export async function OpenAIStream(
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${APIKey ?? ""}`,
+      Authorization: `Bearer ${apiKey ?? ""}`,
     },
     method: "POST",
     body: JSON.stringify(payload),
