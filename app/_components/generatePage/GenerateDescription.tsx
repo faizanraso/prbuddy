@@ -47,7 +47,21 @@ export default function GenerateDescription({
     });
   }
 
-  function generatePRDescription() {}
+  function generatePRDescription(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!diffFile?.fileContent) {
+      toast.error("No diff file uploaded", {
+        style: {
+          borderRadius: "10px",
+          background: "#9A1616 ",
+          color: "#fff",
+        },
+      });
+      return;
+    }
+
+    // generate
+  }
 
   return (
     <form onSubmit={generatePRDescription}>
