@@ -33,8 +33,9 @@ export default function GenerateDescription({
 
   const responseRef = useRef<HTMLDivElement | null>(null);
 
+  const promptBase = `Generate a descriptive Pull Request (PR) description based on the changes made in the current branch. Consider the following git diff: \n\n`;
   const prompt = diffFile?.fileContent
-    ? process.env.OPENAI_PROMPT?.concat(diffFile?.fileContent)
+    ? promptBase.concat(diffFile?.fileContent)
     : "";
 
   useEffect(() => {
