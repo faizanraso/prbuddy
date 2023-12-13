@@ -9,12 +9,17 @@ export const config = {
 };
 
 const handler = async (req: Request): Promise<Response> => {
-  const { prompt } = (await req.json()) as {
+  const { prompt, APIKey } = (await req.json()) as {
     prompt?: string;
+    APIKey?: string;
   };
 
   if (!prompt) {
     return new Response("No prompt in the request", { status: 400 });
+  }
+
+  if (!APIKey) {
+    return new Response("No API Key in the request", { status: 400 });
   }
 
   const payload: OpenAIStreamPayload = {
@@ -29,7 +34,7 @@ const handler = async (req: Request): Promise<Response> => {
     n: 1,
   };
 
-  const stream = await OpenAIStream(payload);
+  const stream = await OpenAIStream(payload, APIKey);
   // return stream response (SSE)
   return new Response(stream, {
     headers: new Headers({

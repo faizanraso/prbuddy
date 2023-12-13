@@ -30,12 +30,17 @@ export default function GenerateDescription({
   const [copied, setCopied] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [APIKey, setAPIKey] = useState<string>("");
 
   const responseRef = useRef<HTMLDivElement | null>(null);
 
-  const promptBase = `Generate a descriptive Pull Request (PR) description based on the changes made in the current branch. Consider the following git diff: \n\n`;
+  const promptBase = [
+    "Generate a descriptive Pull Request (PR) description based on the changes made in the current branch. ",
+    "Be sure to divide it into sections if needed. Consider the following git diff: \n\n",
+  ];
+
   const prompt = diffFile?.fileContent
-    ? promptBase.concat(diffFile?.fileContent)
+    ? promptBase.join().concat(diffFile?.fileContent)
     : "";
 
   useEffect(() => {
@@ -64,6 +69,10 @@ export default function GenerateDescription({
     });
   }
 
+  function handleApiKeyInput(e: React.ChangeEvent<HTMLInputElement>) {
+    setAPIKey(e.target.value);
+  }
+
   async function generatePRDescription(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
@@ -87,6 +96,7 @@ export default function GenerateDescription({
       },
       body: JSON.stringify({
         prompt,
+        APIKey,
       }),
     });
 
@@ -137,6 +147,7 @@ export default function GenerateDescription({
               placeholder="OpenAI API Key"
               className="bg-[#192532] border-0 text-gray-300 font-medium"
               type="password"
+              onChange={handleApiKeyInput}
               required
             />
           </div>
