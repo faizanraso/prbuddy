@@ -36,7 +36,13 @@ export default function GeneratePage() {
                   setDiffFile={setDiffFile}
                 />
               ) : null}
-              {section.sectionNumber === 3 ? <GenerateDescription /> : null}
+              {section.sectionNumber === 3 ? (
+                <GenerateDescription
+                  key={section.sectionNumber}
+                  diffFile={diffFile}
+                  setDiffFile={setDiffFile}
+                />
+              ) : null}
             </div>
           ))}
         </div>
