@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import {
   createParser,
@@ -31,6 +31,8 @@ export default function GenerateDescription({
   const [response, setResponse] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const responseRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (!copied) return;
     const timer = setTimeout(() => {
@@ -39,6 +41,11 @@ export default function GenerateDescription({
 
     return () => clearTimeout(timer);
   }, [copied]);
+
+  function scrollToResponse() {
+    if (responseRef)
+      responseRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
 
   function handleCopy() {
     setCopied(true);
@@ -55,6 +62,7 @@ export default function GenerateDescription({
   async function generatePRDescription(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
+    setResponse("");
 
     if (!diffFile?.fileContent) {
       toast.error("No diff file uploaded", {
@@ -110,8 +118,8 @@ export default function GenerateDescription({
       const chunkValue = decoder.decode(value);
       parser.feed(chunkValue);
     }
-    
-    // scrollToBios();
+
+    scrollToResponse();
     setIsLoading(false);
   }
 
@@ -152,9 +160,11 @@ export default function GenerateDescription({
           >
             {!copied ? <CopyIcon /> : <CheckIcon />}
           </button>
-          <pre className="bg-[#192532] rounded-lg border-0 h-64 p-4 overflow-scroll text-gray-300">
-            {response}
-          </pre>
+          <div className="w-full" ref={responseRef}>
+            <pre className="bg-[#192532] rounded-lg border-0 h-64 p-4 overflow-scroll text-gray-300">
+              {response}
+            </pre>{" "}
+          </div>
         </div>
       </div>
     </form>
