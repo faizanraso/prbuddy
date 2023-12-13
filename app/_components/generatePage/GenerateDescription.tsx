@@ -18,7 +18,7 @@ import CopyIcon from "../icons/CopyIcon";
 interface GenerateDescriptionProps {
   diffFile?: {
     fileName: string;
-    fileContent: string | ArrayBuffer | null;
+    fileContent: string | null;
   };
   setDiffFile: any;
 }
@@ -32,6 +32,10 @@ export default function GenerateDescription({
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const responseRef = useRef<HTMLDivElement | null>(null);
+
+  const prompt = diffFile?.fileContent
+    ? process.env.OPENAI_PROMPT?.concat(diffFile?.fileContent)
+    : "";
 
   useEffect(() => {
     if (!copied) return;

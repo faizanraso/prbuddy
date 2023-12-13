@@ -9,7 +9,7 @@ import GenerateDescription from "../_components/generatePage/GenerateDescription
 
 interface FileProps {
   fileName: string;
-  fileContent: string | ArrayBuffer | null;
+  fileContent: string | null;
 }
 
 export default function GeneratePage() {
