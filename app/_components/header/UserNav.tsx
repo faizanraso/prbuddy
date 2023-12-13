@@ -62,7 +62,7 @@ export default function UserNav() {
         </DropdownMenu>
       ) : (
         <Link href={"/"}>
-          <Button className="font-bold text-xs bg-[#192532] hover:bg-[#23486F]">
+          <Button className="font-bold text-xs transition duration-150 bg-[#192532] hover:bg-[#23486F]">
             Sign In
           </Button>
         </Link>
