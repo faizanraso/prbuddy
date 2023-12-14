@@ -14,9 +14,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import { useState } from "react";
+import UserProfileDialog from "./UserProfileDialog";
 
 export default function UserNav() {
   const { data: session, status } = useSession();
+  const [viewProfile, setViewProfile] = useState<boolean>(false);
 
   function SignOut(e: { preventDefault: () => void }) {
     signOut();
@@ -49,12 +52,12 @@ export default function UserNav() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem className="cursor-pointer">
-                Profile
+            {/* <DropdownMenuGroup>
+              <DropdownMenuItem className="cursor-pointer" asChild>
+                <UserProfileDialog session={session} />
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> */}
             <DropdownMenuItem onClick={SignOut} className="cursor-pointer">
               Log out
             </DropdownMenuItem>
