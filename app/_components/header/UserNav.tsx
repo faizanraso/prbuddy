@@ -52,12 +52,12 @@ export default function UserNav() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
+            {/* <DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer" asChild>
                 <UserProfileDialog session={session} />
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator /> */}
             <DropdownMenuItem onClick={SignOut} className="cursor-pointer">
               Log out
             </DropdownMenuItem>

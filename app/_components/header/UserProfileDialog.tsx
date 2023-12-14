@@ -18,7 +18,10 @@ export default function UserProfileDialog({ session }: { session: any }) {
         <DialogHeader>
           <DialogTitle className="px-4 pt-2">{session?.user?.name}</DialogTitle>
           <DialogDescription>
-            <div className="flex flex-col items-center justify-center py-3 gap-y-5"></div>
+            <div className="flex flex-col items-center justify-center py-20 gap-y-5">
+              <p className="font-semibold text-xl">Total Generations</p>
+              <p className="font-semibold text-3xl">5</p>
+            </div>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
