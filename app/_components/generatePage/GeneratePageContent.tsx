@@ -8,7 +8,7 @@ export const GeneratePageContent = [
       "Make sure you are on the branch associated with the opened PR and adjust the name of the 'main' branch if it differs.",
     ],
     codeBlock: true,
-    code: "git --no-pager diff FETCH_HEAD $(git merge-base FETCH_HEAD main) > diff.txt",
+    code: "git --no-pager diff $(git merge-base FETCH_HEAD main) FETCH_HEAD > diff.txt",
   },
   {
     sectionNumber: 2,
