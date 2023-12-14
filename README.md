@@ -1,4 +1,4 @@
-# PRBuddy
+# [PRBuddy](https://prbuddy.vercel.app/)
 
 PRBuddy is a Next.js application that leverages the OpenAI API, Git diff files, and various technologies such as shadcn, Supabase, OAuth, Prisma, and TypeScript to automatically generate Pull Request (PR) descriptions. This project is developed as part of the Supabase Launch Week X Hackathon
 
