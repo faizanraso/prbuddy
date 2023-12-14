@@ -136,6 +136,14 @@ export default function GenerateDescription({
 
     scrollToResponse();
     setIsLoading(false);
+
+    toast.success("Generated", {
+      style: {
+        borderRadius: "10px",
+        background: "#10331D",
+        color: "#fff",
+      },
+    });
   }
 
   return (
@@ -177,7 +185,7 @@ export default function GenerateDescription({
             {!copied ? <CopyIcon /> : <CheckIcon />}
           </button>
           <div className="w-full" ref={responseRef}>
-            <pre className="bg-[#192532] rounded-lg border-0 h-64 p-4 overflow-scroll text-gray-300">
+            <pre className="bg-[#192532] rounded-lg border-0 h-64 p-4 overflow-scroll text-gray-300 text-sm font-semibold">
               {response}
             </pre>{" "}
           </div>
