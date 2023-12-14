@@ -11,7 +11,7 @@ Managing Pull Requests can be a time-consuming task, and crafting meaningful des
 - Automatic generation of Pull Request descriptions based on Git diff.
 - Integration with OpenAI API for intelligent content generation.
 - Built with Next.js, shadcn, Supabase, OAuth, Prisma, and TypeScript.
-- Seamless authentication using OAuth for GitHub integration.
+- Seamless authentication using OAuth.
 
 ## Demo
 
