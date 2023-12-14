@@ -143,7 +143,7 @@ export default function GenerateDescription({
       toast.success("Completed", {
         style: {
           borderRadius: "10px",
-          background: "#9A1616 ",
+          background: "#10331D",
           color: "#fff",
         },
       });
