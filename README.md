@@ -15,7 +15,7 @@ Managing Pull Requests can be a time-consuming task, and crafting meaningful des
 
 ## Demo
 
-
+https://github.com/faizanraso/prbuddy/assets/59986120/e3b6429d-c78b-40c1-bff7-7e03573ebeb7
 
 ## License
 
