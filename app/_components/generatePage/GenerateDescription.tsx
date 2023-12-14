@@ -35,13 +35,9 @@ export default function GenerateDescription({
   const responseRef = useRef<HTMLDivElement | null>(null);
 
   const promptBase = [
-    "Generate a descriptive Pull Request (PR) description based on the changes made in the current branch. ",
-    "Be sure to divide it into sections if needed. Consider the following git diff: \n\n",
+    "Generate a concise Pull Request (PR) description based on the changes made in the current branch. ",
+    "Be sure to divide it into sections if needed. Consider the following git diff: \n",
   ];
-
-  const prompt = diffFile?.fileContent
-    ? promptBase.join().concat(diffFile?.fileContent)
-    : "";
 
   useEffect(() => {
     if (!copied) return;
@@ -51,6 +47,10 @@ export default function GenerateDescription({
 
     return () => clearTimeout(timer);
   }, [copied]);
+
+  const prompt = diffFile?.fileContent
+    ? promptBase.join().concat(diffFile?.fileContent)
+    : "";
 
   function scrollToResponse() {
     if (responseRef)
@@ -127,23 +127,35 @@ export default function GenerateDescription({
     const decoder = new TextDecoder();
     const parser = createParser(onParse);
     let done = false;
+    let counter = 0;
     while (!done) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
       parser.feed(chunkValue);
+      counter++;
     }
 
     scrollToResponse();
     setIsLoading(false);
 
-    toast.success("Generated", {
-      style: {
-        borderRadius: "10px",
-        background: "#10331D",
-        color: "#fff",
-      },
-    });
+    if (counter > 2) {
+      toast.success("Completed", {
+        style: {
+          borderRadius: "10px",
+          background: "#9A1616 ",
+          color: "#fff",
+        },
+      });
+    } else {
+      toast.error("Check your API key and try again", {
+        style: {
+          borderRadius: "10px",
+          background: "#9A1616 ",
+          color: "#fff",
+        },
+      });
+    }
   }
 
   return (
@@ -185,7 +197,7 @@ export default function GenerateDescription({
             {!copied ? <CopyIcon /> : <CheckIcon />}
           </button>
           <div className="w-full" ref={responseRef}>
-            <pre className="bg-[#192532] rounded-lg border-0 h-64 p-4 overflow-scroll text-gray-300 text-sm font-semibold">
+            <pre className="bg-[#192532] rounded-lg border-0 h-64 p-4 overflow-scroll text-gray-300 text-sm font-semibold scroll-auto">
               {response}
             </pre>{" "}
           </div>
