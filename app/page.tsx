@@ -1,7 +1,7 @@
 import React from "react";
 import AuthCard from "./_components/AuthCard";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./utils/AuthOptions";
+import { authOptions } from "../utils/AuthOptions";
 import { redirect } from "next/navigation";
 
 export default async function Home() {

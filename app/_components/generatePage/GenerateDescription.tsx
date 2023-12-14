@@ -1,7 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import {
+  createParser,
+  ParsedEvent,
+  ReconnectInterval,
+} from "eventsource-parser";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,7 +18,7 @@ import CopyIcon from "../icons/CopyIcon";
 interface GenerateDescriptionProps {
   diffFile?: {
     fileName: string;
-    fileContent: string | ArrayBuffer | null;
+    fileContent: string | null;
   };
   setDiffFile: any;
 }
@@ -25,6 +30,14 @@ export default function GenerateDescription({
   const [copied, setCopied] = useState<boolean>(false);
   const [response, setResponse] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [userProvidedAPIKey, setUserProvidedAPIKey] = useState<string>("");
+
+  const responseRef = useRef<HTMLDivElement | null>(null);
+
+  const promptBase = [
+    "Generate a concise Pull Request (PR) description based on the changes made in the current branch. ",
+    "Be sure to divide it into sections if needed. Consider the following git diff: \n",
+  ];
 
   useEffect(() => {
     if (!copied) return;
@@ -34,6 +47,15 @@ export default function GenerateDescription({
 
     return () => clearTimeout(timer);
   }, [copied]);
+
+  const prompt = diffFile?.fileContent
+    ? promptBase.join().concat(diffFile?.fileContent)
+    : "";
+
+  function scrollToResponse() {
+    if (responseRef)
+      responseRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
 
   function handleCopy() {
     setCopied(true);
@@ -47,8 +69,15 @@ export default function GenerateDescription({
     });
   }
 
-  function generatePRDescription(e: React.FormEvent<HTMLFormElement>) {
+  function handleApiKeyInput(e: React.ChangeEvent<HTMLInputElement>) {
+    setUserProvidedAPIKey(e.target.value);
+  }
+
+  async function generatePRDescription(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
+    setResponse("");
+
     if (!diffFile?.fileContent) {
       toast.error("No diff file uploaded", {
         style: {
@@ -60,7 +89,73 @@ export default function GenerateDescription({
       return;
     }
 
-    // generate
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        prompt,
+        userProvidedAPIKey,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    // This data is a ReadableStream
+    const data = response.body;
+    if (!data) {
+      return;
+    }
+
+    const onParse = (event: ParsedEvent | ReconnectInterval) => {
+      if (event.type === "event") {
+        const data = event.data;
+        try {
+          const text = JSON.parse(data).text ?? "";
+          setResponse((prev) => prev + text);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    };
+
+    // https://web.dev/streams/#the-getreader-and-read-methods
+    const reader = data.getReader();
+    const decoder = new TextDecoder();
+    const parser = createParser(onParse);
+    let done = false;
+    let counter = 0;
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
+      parser.feed(chunkValue);
+      counter++;
+    }
+
+    scrollToResponse();
+    setIsLoading(false);
+
+    if (counter > 2) {
+      toast.success("Completed", {
+        style: {
+          borderRadius: "10px",
+          background: "#9A1616 ",
+          color: "#fff",
+        },
+      });
+    } else {
+      toast.error("Check your API key and try again", {
+        style: {
+          borderRadius: "10px",
+          background: "#9A1616 ",
+          color: "#fff",
+        },
+      });
+    }
   }
 
   return (
@@ -72,6 +167,7 @@ export default function GenerateDescription({
               placeholder="OpenAI API Key"
               className="bg-[#192532] border-0 text-gray-300 font-medium"
               type="password"
+              onChange={handleApiKeyInput}
               required
             />
           </div>
@@ -100,9 +196,11 @@ export default function GenerateDescription({
           >
             {!copied ? <CopyIcon /> : <CheckIcon />}
           </button>
-          <pre className="bg-[#192532] rounded-lg border-0 h-64 p-4 overflow-scroll text-gray-300">
-            {response}
-          </pre>
+          <div className="w-full" ref={responseRef}>
+            <pre className="bg-[#192532] rounded-lg border-0 h-64 p-4 overflow-scroll text-gray-300 text-sm font-semibold scroll-auto">
+              {response}
+            </pre>{" "}
+          </div>
         </div>
       </div>
     </form>

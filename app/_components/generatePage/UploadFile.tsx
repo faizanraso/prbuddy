@@ -5,7 +5,7 @@ import React, { useState } from "react";
 interface UploadFileProps {
   diffFile?: {
     fileName: string;
-    fileContent: string | ArrayBuffer | null;
+    fileContent: string | null;
   };
   setDiffFile?: any;
 }
