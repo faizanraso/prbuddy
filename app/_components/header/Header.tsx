@@ -18,7 +18,9 @@ export default function Header() {
               </p>
             </div>
           </Link>
-          <UserNav />
+          <div className="flex flex-row gap-x-3">
+            <UserNav />
+          </div>
         </div>
       </div>
     </header>

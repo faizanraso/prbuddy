@@ -6,6 +6,7 @@ import { GeneratePageContent } from "../_components/generatePage/GeneratePageCon
 import GeneratePageSection from "../_components/generatePage/GeneratePageSection";
 import UploadFile from "../_components/generatePage/UploadFile";
 import GenerateDescription from "../_components/generatePage/GenerateDescription";
+import Footer from "../_components/footer";
 
 interface FileProps {
   fileName: string;
@@ -47,6 +48,7 @@ export default function GeneratePage() {
           ))}
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
