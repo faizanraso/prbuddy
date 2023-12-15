@@ -164,7 +164,7 @@ export default function GenerateDescription({
         <div className="w-full flex justify-between">
           <div className="w-full">
             <Input
-              placeholder="OpenAI API Key"
+              placeholder={`OpenAI API Key or Use 'secret-password' (Without Apostrophes)`}
               className="bg-[#192532] border-0 text-gray-300 font-medium"
               type="password"
               onChange={handleApiKeyInput}
